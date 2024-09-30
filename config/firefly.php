@@ -65,10 +65,6 @@ use FireflyIII\Support\Binder\UserGroupAccount;
 use FireflyIII\Support\Binder\UserGroupBill;
 use FireflyIII\Support\Binder\UserGroupTransaction;
 use FireflyIII\TransactionRules\Actions\AddTag;
-use FireflyIII\TransactionRules\Actions\AppendDescription;
-use FireflyIII\TransactionRules\Actions\AppendDescriptionToNotes;
-use FireflyIII\TransactionRules\Actions\AppendNotes;
-use FireflyIII\TransactionRules\Actions\AppendNotesToDescription;
 use FireflyIII\TransactionRules\Actions\ClearBudget;
 use FireflyIII\TransactionRules\Actions\ClearCategory;
 use FireflyIII\TransactionRules\Actions\ClearNotes;
@@ -77,10 +73,6 @@ use FireflyIII\TransactionRules\Actions\ConvertToTransfer;
 use FireflyIII\TransactionRules\Actions\ConvertToWithdrawal;
 use FireflyIII\TransactionRules\Actions\DeleteTransaction;
 use FireflyIII\TransactionRules\Actions\LinkToBill;
-use FireflyIII\TransactionRules\Actions\MoveDescriptionToNotes;
-use FireflyIII\TransactionRules\Actions\MoveNotesToDescription;
-use FireflyIII\TransactionRules\Actions\PrependDescription;
-use FireflyIII\TransactionRules\Actions\PrependNotes;
 use FireflyIII\TransactionRules\Actions\RemoveAllTags;
 use FireflyIII\TransactionRules\Actions\RemoveTag;
 use FireflyIII\TransactionRules\Actions\SetAmount;
@@ -110,14 +102,15 @@ return [
     ],
     // some feature flags:
     'feature_flags'                => [
-        'export'            => true,
-        'telemetry'         => false,
-        'webhooks'          => true,
-        'handle_debts'      => true,
-        'expression_engine' => true,
+        'export'                 => true,
+        'telemetry'              => false,
+        'webhooks'               => true,
+        'handle_debts'           => true,
+        'expression_engine'      => true,
+        'running_balance_column' => env('USE_RUNNING_BALANCE', false),
         // see cer.php for exchange rates feature flag.
     ],
-    'version'                      => '6.1.20',
+    'version'                      => '6.1.21',
     'api_version'                  => '2.1.0',
     'db_version'                   => 24,
 
