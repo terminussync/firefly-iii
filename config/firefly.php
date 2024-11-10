@@ -110,9 +110,9 @@ return [
         'running_balance_column' => env('USE_RUNNING_BALANCE', false),
         // see cer.php for exchange rates feature flag.
     ],
-    'version'                      => '6.1.21',
-    'api_version'                  => '2.1.0',
-    'db_version'                   => 24,
+    'version'                      => '6.1.22',
+    'api_version'                  => '2.1.0', // field is no longer used.
+    'db_version'                   => 25,
 
     // generic settings
     'maxUploadSize'                => 1073741824, // 1 GB
@@ -255,6 +255,7 @@ return [
     'allowedMimes'                 => [
         // plain files
         'text/plain',
+        'text/html',
 
         // images
         'image/jpeg',

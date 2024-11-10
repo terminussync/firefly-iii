@@ -103,7 +103,8 @@ class PopupReport implements PopupReportInterface
 
         /** @var GroupCollectorInterface $collector */
         $collector  = app(GroupCollectorInterface::class);
-        $collector->setAccounts($attributes['accounts'])
+        $collector
+            ->setAccounts($attributes['accounts'])
             ->withAccountInformation()
             ->withBudgetInformation()
             ->withCategoryInformation()
@@ -113,11 +114,10 @@ class PopupReport implements PopupReportInterface
         if (null !== $currency) {
             $collector->setCurrency($currency);
         }
-
-        if (null === $budget->id) {
+        if (null === $budget->id || 0 === $budget->id) {
             $collector->setTypes([TransactionType::WITHDRAWAL])->withoutBudget();
         }
-        if (null !== $budget->id) {
+        if (null !== $budget->id && 0 !== $budget->id) {
             $collector->setBudget($budget);
         }
 

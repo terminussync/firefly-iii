@@ -161,7 +161,7 @@ class CreditRecalculateService
         app('log')->debug(sprintf('Now processing account #%d ("%s"). All amounts with 2 decimals!', $account->id, $account->name));
         // get opening balance (if present)
         $this->repository->setUser($account->user);
-        $direction      = (string)$this->repository->getMetaValue($account, 'liability_direction');
+        $direction      = (string) $this->repository->getMetaValue($account, 'liability_direction');
         $openingBalance = $this->repository->getOpeningBalance($account);
         if (null !== $openingBalance) {
             app('log')->debug(sprintf('Found opening balance transaction journal #%d', $openingBalance->id));
@@ -242,6 +242,15 @@ class CreditRecalculateService
     private function processTransaction(Account $account, string $direction, Transaction $transaction, string $leftOfDebt): string
     {
         $journal         = $transaction->transactionJournal;
+
+        // here be null pointers.
+        if (null === $journal) {
+            app('log')->warning(sprintf('Transaction #%d has no journal.', $transaction->id));
+
+            return $leftOfDebt;
+        }
+
+
         $foreignCurrency = $transaction->foreignCurrency;
         $accountCurrency = $this->repository->getAccountCurrency($account);
         $type            = $journal->transactionType->type;
@@ -327,15 +336,17 @@ class CreditRecalculateService
 
         if ($isSameAccount && $isDebit && $this->isTransferIn($usedAmount, $type)) { // case 9
             $usedAmount = app('steam')->positive($usedAmount);
-            $result     = bcadd($leftOfDebt, $usedAmount);
-            app('log')->debug(sprintf('Case 9 (transfer into debit liability, means you owe more): %s + %s = %s', app('steam')->bcround($leftOfDebt, 2), app('steam')->bcround($usedAmount, 2), app('steam')->bcround($result, 2)));
+            $result     = bcsub($leftOfDebt, $usedAmount);
+            // 2024-10-05, #9225 this used to say you would owe more, but a transfer INTO a debit from wherever means you owe LESS.
+            app('log')->debug(sprintf('Case 9 (transfer into debit liability, means you owe LESS): %s - %s = %s', app('steam')->bcround($leftOfDebt, 2), app('steam')->bcround($usedAmount, 2), app('steam')->bcround($result, 2)));
 
             return $result;
         }
         if ($isSameAccount && $isDebit && $this->isTransferOut($usedAmount, $type)) { // case 10
             $usedAmount = app('steam')->positive($usedAmount);
-            $result     = bcsub($leftOfDebt, $usedAmount);
-            app('log')->debug(sprintf('Case 5 (transfer out of debit liability, means you owe less): %s - %s = %s', app('steam')->bcround($leftOfDebt, 2), app('steam')->bcround($usedAmount, 2), app('steam')->bcround($result, 2)));
+            $result     = bcadd($leftOfDebt, $usedAmount);
+            // 2024-10-05, #9225 this used to say you would owe less, but a transfer OUT OF a debit from wherever means you owe MORE.
+            app('log')->debug(sprintf('Case 10 (transfer out of debit liability, means you owe MORE): %s + %s = %s', app('steam')->bcround($leftOfDebt, 2), app('steam')->bcround($usedAmount, 2), app('steam')->bcround($result, 2)));
 
             return $result;
         }

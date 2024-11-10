@@ -272,6 +272,7 @@ return [
     'no_auth_user_group'              => 'You have to be logged in to access this administration.',
     'no_access_user_group'            => 'You do not have the correct access rights for this administration.',
     'administration_owner_rename'     => 'You can\'t rename your standard administration.',
+    'existing_mfa_code'               => 'Please enter a valid code',
 ];
 
 // Ignore this comment

@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 6.1.22 - 2024-11-07
+
+### Added
+
+- [Discussion 8092](https://github.com/orgs/firefly-iii/discussions/8092) (Fresh Install - Register -> 403 Error - Forbidden) started by @pheonix-devapps
+- [Issue 9183](https://github.com/firefly-iii/firefly-iii/issues/9183) (2FA security improvements) reported by @JC5
+- Firefly III stores timezone data in a separate field, preparing for a switch to UTC (in the database).
+
+### Fixed
+
+- [Issue 9106](https://github.com/firefly-iii/firefly-iii/issues/9106) (Inactive accounts are inaccessible when no active accounts of that type exist) reported by @codemicro
+- [Issue 9147](https://github.com/firefly-iii/firefly-iii/issues/9147) (Store/Update Bill API end_date and extension_date cant be null in request) reported by @jkano
+- [Issue 9175](https://github.com/firefly-iii/firefly-iii/issues/9175) ("Attempt to read property "type" on null" when mass editing transactions) reported by @Still34
+- [Issue 9225](https://github.com/firefly-iii/firefly-iii/issues/9225) (Liability amount due calculated incorrectly on liabilities list when the liability is settled with a transfer to another liability) reported by @uumas
+- [Discussion 9234](https://github.com/orgs/firefly-iii/discussions/9234) (Unsupported cipher or incorrect key length ( first run )) started by @spectroman
+- [Issue 9236](https://github.com/firefly-iii/firefly-iii/issues/9236) (Autocomplete not working for rrules having the bill as a trigger) reported by @pvieira84
+- [Issue 9282](https://github.com/firefly-iii/firefly-iii/issues/9282) (Default report - no transactions for no budget) reported by @rymrg 
+- [Issue 9294](https://github.com/firefly-iii/firefly-iii/issues/9294) (Repetition counts ignored for recurring transactions) reported by @Syncena
+- [Issue 9303](https://github.com/firefly-iii/firefly-iii/issues/9303) (Rules > Rule > Action) reported by @EricVanCaenenberghe
+- [Issue 9305](https://github.com/firefly-iii/firefly-iii/issues/9305) (Recurring transactions get group title on overview page) reported by @zeitwidrig
+- [Discussion 9324](https://github.com/orgs/firefly-iii/discussions/9324) (Consistent behavior accross DB Engines) started by @stackcoder
+- [Issue 9360](https://github.com/firefly-iii/firefly-iii/issues/9360) (Date incorrectly shown) reported by @enboig
+- [Issue 9389](https://github.com/firefly-iii/firefly-iii/issues/9389) (Budget and Bill field on Recurring transactions not updating) reported by @HHUBSS
+- [Issue 9416](https://github.com/firefly-iii/firefly-iii/issues/9416) (Linking Transaction to Bill doesn't mark as paid for 31st) reported by @harrhunt
+- [Issue 9427](https://github.com/firefly-iii/firefly-iii/issues/9427) (The standard financial report does not show all transactions for the income categories) reported by @Neroxeles
+- [Issue 9443](https://github.com/firefly-iii/firefly-iii/issues/9443) (Budget report on inactive budget gives a 404) reported by @adyanth
+- [Issue 9444](https://github.com/firefly-iii/firefly-iii/issues/9444) (Printing a page does not include dates) reported by @cachho 
+- [Issue 9447](https://github.com/firefly-iii/firefly-iii/issues/9447) (Transaction doesn't show up when attaching HTML file) reported by @Marc928132
+
+### API
+
+- API version is no longer distinguished from Firefly III version. API jumps from v2.1.0 to v6.1.22
+- API v2 is cleaned up and misses a few previously available endpoints. They will be added in the future.
+- [Discussion 9271](https://github.com/orgs/firefly-iii/discussions/9271) (/v2/chart/balance/balance ignoring the `period` parameter) started by @victorbalssa
+
 ## 6.1.21 - 2024-09-30
 
 ### Added

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace FireflyIII\Models;
 
+use FireflyIII\Enums\RecurrenceRepetitionWeekend;
 use FireflyIII\Support\Models\ReturnsIntegerIdTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -37,9 +38,16 @@ class RecurrenceRepetition extends Model
     use ReturnsIntegerIdTrait;
     use SoftDeletes;
 
+    /** @deprecated */
     public const int WEEKEND_DO_NOTHING    = 1;
+
+    /** @deprecated */
     public const int WEEKEND_SKIP_CREATION = 2;
+
+    /** @deprecated */
     public const int WEEKEND_TO_FRIDAY     = 3;
+
+    /** @deprecated */
     public const int WEEKEND_TO_MONDAY     = 4;
 
     protected $casts
@@ -57,6 +65,13 @@ class RecurrenceRepetition extends Model
 
     /** @var string The table to store the data in */
     protected $table                       = 'recurrences_repetitions';
+
+    protected function casts(): array
+    {
+        return [
+            // 'weekend' => RecurrenceRepetitionWeekend::class,
+        ];
+    }
 
     public function recurrence(): BelongsTo
     {

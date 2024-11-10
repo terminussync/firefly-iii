@@ -42,7 +42,8 @@ class TokenFormRequest extends FormRequest
     {
         // fixed
         return [
-            'code' => 'required|2faCode',
+            'password' => 'required|currentPassword',
+            'code'     => 'required|2faCode',
         ];
     }
 

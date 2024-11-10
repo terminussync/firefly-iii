@@ -270,7 +270,7 @@ class AccountRepository implements AccountRepositoryInterface
                 $query->where('accounts.active', $value);
             }
             if ('name' === $column) {
-                $query->where('accounts.name', 'LIKE', sprintf('%%%s%%', $value));
+                $query->whereLike('accounts.name', sprintf('%%%s%%', $value));
             }
         }
 
@@ -298,34 +298,38 @@ class AccountRepository implements AccountRepositoryInterface
         return $query->get(['accounts.*']);
     }
 
-    public function searchAccount(array $query, array $types, int $limit): Collection
+    public function searchAccount(string $query, array $types, int $page, int $limit): Collection
     {
         // search by group, not by user
         $dbQuery = $this->userGroup->accounts()
             ->where('active', true)
+            ->orderBy('accounts.updated_at', 'ASC')
             ->orderBy('accounts.order', 'ASC')
             ->orderBy('accounts.account_type_id', 'ASC')
             ->orderBy('accounts.name', 'ASC')
             ->with(['accountType'])
         ;
-        if (count($query) > 0) {
-            // split query on spaces just in case:
+
+        // split query on spaces just in case:
+        if ('' !== trim($query)) {
             $dbQuery->where(function (EloquentBuilder $q) use ($query): void {
-                foreach ($query as $line) {
-                    $parts = explode(' ', $line);
-                    foreach ($parts as $part) {
-                        $search = sprintf('%%%s%%', $part);
-                        $q->orWhere('name', 'LIKE', $search);
-                    }
+                $parts = explode(' ', $query);
+                foreach ($parts as $part) {
+                    $search = sprintf('%%%s%%', $part);
+                    $q->orWhereLike('name', $search);
                 }
             });
         }
+
         if (0 !== count($types)) {
             $dbQuery->leftJoin('account_types', 'accounts.account_type_id', '=', 'account_types.id');
             $dbQuery->whereIn('account_types.type', $types);
         }
 
-        return $dbQuery->take($limit)->get(['accounts.*']);
+        $dbQuery->skip(($page - 1) * $limit)->take($limit);
+
+        return $dbQuery->get(['accounts.*']);
+
     }
 
     #[\Override]

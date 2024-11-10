@@ -86,7 +86,7 @@ trait RenderPartialViews
     {
         /** @var BudgetRepositoryInterface $repository */
         $repository = app(BudgetRepositoryInterface::class);
-        $budgets    = $repository->getBudgets();
+        $budgets    = $repository->getActiveBudgets();
 
         try {
             $result = view('reports.options.budget', compact('budgets'))->render();
@@ -115,6 +115,7 @@ trait RenderPartialViews
 
         $budget           = $budgetRepository->find((int)$attributes['budgetId']);
         if (null === $budget) {
+            // transactions without a budget.
             $budget = new Budget();
         }
         $journals         = $popupHelper->byBudget($budget, $attributes);

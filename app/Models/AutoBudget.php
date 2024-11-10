@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace FireflyIII\Models;
 
+use FireflyIII\Enums\AutoBudgetType;
 use FireflyIII\Support\Models\ReturnsIntegerIdTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -38,8 +39,13 @@ class AutoBudget extends Model
     use ReturnsIntegerIdTrait;
     use SoftDeletes;
 
+    /** @deprecated */
     public const int AUTO_BUDGET_ADJUSTED = 3;
+
+    /** @deprecated */
     public const int AUTO_BUDGET_RESET    = 1;
+
+    /** @deprecated */
     public const int AUTO_BUDGET_ROLLOVER = 2;
     protected $fillable                   = ['budget_id', 'amount', 'period'];
 
@@ -51,6 +57,13 @@ class AutoBudget extends Model
     public function transactionCurrency(): BelongsTo
     {
         return $this->belongsTo(TransactionCurrency::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            // 'auto_budget_type' => AutoBudgetType::class,
+        ];
     }
 
     protected function amount(): Attribute

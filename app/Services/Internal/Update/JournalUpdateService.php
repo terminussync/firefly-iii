@@ -490,6 +490,7 @@ class JournalUpdateService
                 }
                 // do some parsing.
                 app('log')->debug(sprintf('Create date value from string "%s".', $value));
+                $this->transactionJournal->date_tz = $value->format('e');
             }
             event(
                 new TriggeredAuditLog(
@@ -608,6 +609,13 @@ class JournalUpdateService
                     'journal' => $this->transactionJournal,
                     'name'    => $field,
                     'data'    => $value,
+                ];
+                $factory->updateOrCreate($set);
+                // also set date with timezone.
+                $set = [
+                    'journal' => $this->transactionJournal,
+                    'name'    => sprintf('%s_tz', $field),
+                    'data'    => $value?->format('e'),
                 ];
                 $factory->updateOrCreate($set);
             }
