@@ -54,7 +54,11 @@ class Transaction extends Model
             'bill_name_encrypted' => 'boolean',
             'reconciled'          => 'boolean',
             'balance_dirty'       => 'boolean',
+            'balance_before'      => 'string',
+            'balance_after'       => 'string',
             'date'                => 'datetime',
+            'amount'              => 'string',
+            'foreign_amount'      => 'string',
         ];
 
     protected $fillable

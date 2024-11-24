@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 6.1.24 - 2024-11-24
+
+### Fixed
+
+- [Issue 9491](https://github.com/firefly-iii/firefly-iii/issues/9491) (Transactions created at midnight on the first day of a month are not listed correctly) reported by @Neroxeles
+
+## 6.1.23 - 2024-11-23
+
+### Added
+
+- Expand (future) timezone support.
+- [Issue 9451](https://github.com/firefly-iii/firefly-iii/issues/9451) (Trigger "Has at least this many attachments" is misnamed?) reported by @Kvan7
+- [Issue 9458](https://github.com/firefly-iii/firefly-iii/issues/9458) (The add transaction failed) reported by @wqwwffsytxwp
+- [Issue 9466](https://github.com/firefly-iii/firefly-iii/issues/9466) (First instance of recurring transaction not firing automatically or manually) reported by @makobot-sh
+- [PR 9468](https://github.com/firefly-iii/firefly-iii/pull/9468) (Transaction Model: explicitly cast decimal to string) reported by @yparitcher
+- [Issue 9477](https://github.com/firefly-iii/firefly-iii/issues/9477) (Default Financial report: Income vs Expense has missing months when multiple currencies are used) reported by @thomase1234
+- [PR 9488](https://github.com/firefly-iii/firefly-iii/pull/9488) (fix: set dest foreign_amount and foreign_currency_id for foreign transfers) reported by @antoniomrfranco
+- [PR 9483](https://github.com/firefly-iii/firefly-iii/pull/9483) (fix: include foreign_amount in transaction sum calculation) reported by @antoniomrfranco
+- Broken links in readme.
+
 ## 6.1.22 - 2024-11-07
 
 ### Added

@@ -63,7 +63,7 @@ return [
     'invalid_selection'               => 'Your selection is invalid.',
     'belongs_user'                    => 'This value is linked to an object that does not seem to exist.',
     'belongs_user_or_user_group'      => 'This value is linked to an object that does not seem to exist in your current financial administration.',
-    'no_access_group'                 => 'The user has no access to this user group.',
+    'no_access_group'                 => 'The user has no access to this administration.',
     'no_accepted_roles_defined'       => 'No access roles have been defined for this endpoint, access denied.',
     'at_least_one_transaction'        => 'Need at least one transaction.',
     'recurring_transaction_id'        => 'Need at least one transaction.',
@@ -262,6 +262,7 @@ return [
     'gte.file'                        => 'The :attribute must be greater than or equal to :value kilobytes.',
     'gte.string'                      => 'The :attribute must be greater than or equal to :value characters.',
     'gte.array'                       => 'The :attribute must have :value items or more.',
+    'missing_with'                    => 'The :attribute cannot be combined with another field.',
 
     'amount_required_for_auto_budget' => 'The amount is required.',
     'auto_budget_amount_positive'     => 'The amount must be more than zero.',
